@@ -11,9 +11,10 @@ const Register = () => {
         e.preventDefault();
 
         // input field 
+        const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email, password);
+        console.log(name, email, password);
     }
 
     return (
@@ -26,16 +27,22 @@ const Register = () => {
                     <form onSubmit={handleRegister} className="card-body">
                         <div className="form-control">
                             <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input type="text" placeholder="Your name" name='name' className="input input-bordered" required />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" placeholder="email" name='email' className="input input-bordered" required />
+                            <input type="email" placeholder="Email" name='email' className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
                             <div className='relative'>
-                                <input type={toggleEye ? "text" : "password"} placeholder="password" name='password' className="w-full py-2 px-4 border border-gray-300 rounded-md input-bordered" required />
+                                <input type={toggleEye ? "text" : "password"} placeholder="Password" name='password' className="w-full py-2 px-4 border border-gray-300 rounded-md input-bordered" required />
                                 <div onClick={() => setToggleEye(!toggleEye)} className='absolute top-[20%] text-2xl right-[10%]'>{toggleEye? <IoEyeOff/> : <IoEye/>}    </div>
                             </div>
                         </div>

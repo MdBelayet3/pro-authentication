@@ -15,6 +15,12 @@ const Header = () => {
         <li><NavLink className="text-xl" to="/login">Login</NavLink></li>
         <li><NavLink className="text-xl" to="/register">Register</NavLink></li>
         <li><NavLink className="text-xl" to="/orders">Orders</NavLink></li>
+        {
+            user && <>
+                <li><NavLink className="text-xl" to="/profile">Profile</NavLink></li>
+                <li><NavLink className="text-xl" to="/dashboard">Dashboard</NavLink></li>
+            </>
+        }
     </>
 
     // handleLogOut function

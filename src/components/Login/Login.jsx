@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { AuthContext } from '../../providers/AuthProvider';
+import { useNavigate } from 'react-router';
 
 const Login = () => {
 
-    // useState and useContext
+    // useState and useContext useNavigate hook
     const [toggleEye, setToggleEye] = useState(false)
     const {signInUser} = useContext(AuthContext);
     // console.log(signInUser);
+    const navigate = useNavigate();
 
     // handleLogin function
     const handleLogin = e => {
@@ -26,6 +28,8 @@ const Login = () => {
         .catch(error => {
             console.error(error);
         })
+        e.target.reset();
+        navigate('/')
     }
 
     return (

@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Register = () => {
 
-    // useState
+    // useState and useContext
     const [toggleEye, setToggleEye] = useState(false)
+    const {createUser} = useContext(AuthContext);
+    // console.log(createUser);
 
     // handleRegister function
     const handleRegister = e => {
@@ -15,6 +18,16 @@ const Register = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(name, email, password);
+
+        // create user
+        createUser(email,password)
+        .then(result => {
+            console.log(result.user);
+        })
+        .catch(error => {
+            console.error(error);
+        })
+
     }
 
     return (

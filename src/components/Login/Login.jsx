@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Login = () => {
 
-    // useState
+    // useState and useContext
     const [toggleEye, setToggleEye] = useState(false)
+    const {signInUser} = useContext(AuthContext);
+    // console.log(signInUser);
 
     // handleLogin function
     const handleLogin = e => {
@@ -14,6 +17,15 @@ const Login = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email, password);
+
+        // signInUser function
+        signInUser(email, password)
+        .then(result => {
+            console.log(result.user);
+        })
+        .catch(error => {
+            console.error(error);
+        })
     }
 
     return (

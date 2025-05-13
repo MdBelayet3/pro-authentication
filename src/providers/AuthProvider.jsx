@@ -1,13 +1,51 @@
-import React, { createContext } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import auth from '../firebase/firebase.config';
 
 // create context
 /* eslint-disable-next-line react-refresh/only-export-components */
 export const AuthContext = createContext(null);
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
 
-    const authInfo = {name: "shagor nodi khal bil"}
+    // useState
+    const [user, setUser] = useState(null);
+    const [loading,setLoading] = useState(true);
+
+    // function for creating user in firebase
+    const createUser = (email, password) => {
+        setLoading(true);
+        return createUserWithEmailAndPassword(auth, email, password);
+    }
+
+    // function for signing user in firebase
+    const signInUser = (email, password) => {
+        setLoading(true);
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    // function for sign out from firebase
+    const logOut = () =>{
+        setLoading(true);
+        return signOut(auth);
+    }
+
+    // useEffect for observing to auth state change
+    useEffect(() =>{
+        const unSubscribe = onAuthStateChanged(auth, (currentUser) =>{
+            setUser(currentUser);
+            setLoading(false);
+            console.log('Observing from firebase',currentUser);
+        })
+
+        return () =>{
+            unSubscribe();
+        }
+    },[])
+
+    // value of context
+    const authInfo = { loading, user, createUser, signInUser, logOut, };
 
     return (
         <AuthContext.Provider value={authInfo}>

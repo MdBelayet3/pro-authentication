@@ -7,7 +7,7 @@ const Login = () => {
 
     // useState and useContext useNavigate hook
     const [toggleEye, setToggleEye] = useState(false)
-    const {signInUser} = useContext(AuthContext);
+    const { signInUser, googleLogIn } = useContext(AuthContext);
     // console.log(signInUser);
     const navigate = useNavigate();
 
@@ -22,13 +22,25 @@ const Login = () => {
 
         // signInUser function
         signInUser(email, password)
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+        e.target.reset();
+        navigate('/')
+    }
+
+    // handleGoogleLogIn function
+    const handleGoogleLogIn = () =>{
+        googleLogIn()
         .then(result => {
             console.log(result.user);
         })
         .catch(error => {
             console.error(error);
         })
-        e.target.reset();
         navigate('/')
     }
 
@@ -52,7 +64,7 @@ const Login = () => {
                             </label>
                             <div className='relative'>
                                 <input type={toggleEye ? "text" : "password"} placeholder="password" name='password' className="w-full py-2 px-4 border border-gray-300 rounded-md input-bordered" required />
-                                <div onClick={() => setToggleEye(!toggleEye)} className='absolute top-[20%] text-2xl right-[10%]'>{toggleEye? <IoEyeOff/> : <IoEye/>}    </div>
+                                <div onClick={() => setToggleEye(!toggleEye)} className='absolute top-[20%] text-2xl right-[10%]'>{toggleEye ? <IoEyeOff /> : <IoEye />}    </div>
                             </div>
                             <label className="label">
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
@@ -63,6 +75,7 @@ const Login = () => {
                         </div>
                     </form>
                     <p className='ml-5 mb-4'>New? Please <a href='/register' className='btn btn-secondary'>Register</a></p>
+                    <button onClick={handleGoogleLogIn} className='btn btn-accent my-3 mx-5'>Google</button>
                 </div>
             </div>
         </div>

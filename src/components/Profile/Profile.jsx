@@ -8,9 +8,10 @@ const Profile = () => {
     return (
         <div>
             <h2 className='text-2xl'>My personal Information</h2>
-            {user && <p>
-                {user.email}
-            </p>}
+            {user && <div>
+                <p>{user.email}</p>
+                <p>{user.displayName}</p>
+            </div>}
         </div>
     );
 };

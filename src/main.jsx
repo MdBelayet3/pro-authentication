@@ -16,6 +16,7 @@ import Orders from './components/Orders.jsx';
 import PrivateRoute from './routes/PrivateRoute.jsx';
 import Profile from './components/Profile/Profile.jsx';
 import Dashboard from './components/Profile/Dashboard.jsx';
+import GptLogin from './components/GptLogin.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>
+      },
+      {
+        path: "/gptLogin",
+        element: <GptLogin></GptLogin>
       },
       {
         path: "/register",
